@@ -1,0 +1,19 @@
+{
+  "name": "@drush-io/hubot-drush-io",
+  "version": "1.0.0-beta.1",
+  "description": "Trigger custom workflow operations in chat via drush.io.",
+  "main": "index.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hubot",
+    "drush.io"
+  ],
+  "author": "iamEAP",
+  "license": "MIT",
+  "dependencies": {
+    "@drush-io/api-client": "^1.0.0-alpha.3",
+    "fernet": "^0.3.0"
+  }
+}
