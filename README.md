@@ -14,10 +14,10 @@ In hubot project repo, run:
 
 `npm install @drush-io/hubot-drush-io --save`
 
-Then add **hubot-drush-io** to your `external-scripts.json`:
+Then add **@drush-io/hubot-drush-io** to your `external-scripts.json`:
 
 ```json
-["hubot-drush-io"]
+["@drush-io/hubot-drush-io"]
 ```
 
 ## Configuration
@@ -93,7 +93,7 @@ allows users to set  tokens in chat instead of through Hubot's http listener.
 
 ```
 user1>> bot drush.io token set eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.t-IDcSemACt8x4iTMCda8Yhe3iZaWbvV5XKSTbuAn0M
-bot>> Your drush.io  APItoken is valid. I stored it for future use.
+bot>> Your drush.io  API token is valid. I stored it for future use.
 user1>> bot drush.io token verify
 bot>> Your drush.io API token is valid on api.github.com.
 user1>> bot drush.io token reset
