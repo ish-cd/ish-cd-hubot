@@ -26,6 +26,9 @@ Then add **@drush-io/hubot-drush-io** to your `external-scripts.json`:
   tokens in the hubot's brain. A comma delimited set of different key tokens.
   To create one run `dd if=/dev/urandom bs=32 count=1 2>/dev/null | openssl base64`
   on a UNIX system.
+- `HUBOT_DRUSH_IO_DEFAULT_PROJECT` - Optional. A drush.io project-ish (project
+  ID or project machine name) that will be used when running jobs if no project
+  is provided. Recommended unless you use multiple/many drush.io projects.
 - `HUBOT_DRUSH_IO_DEFAULT_API_TOKEN` - Optional. A drush.io API token that, if
   set, is used when a user with no API token set attempts to run a drush.io job.
   Only set this if you need to.
@@ -56,7 +59,8 @@ The function signature for `robot.drush.io.run` is like so:
  * 
  * @param {String} project
  *   The machine name (or ID) of the drush.io project associated with the job
- *   you wish to run.
+ *   you wish to run. If none is provided (null), the value of the environment
+ *   variable HUBOT_DRUSH_IO_DEFAULT_PROJECT will be used.
  * 
  * @param {String} job
  *   The machine name (or ID) of the drush.io job you wish to run.
