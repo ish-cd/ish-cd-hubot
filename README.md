@@ -38,7 +38,7 @@ custom commands that trigger drush.io jobs:
 ```coffeescript
 # Listen for the phrase "deploy to test"
 robot.hear /^deploy to test$/i, (msg) ->
-  # Trigger the "deployt-to-test" job on "my-project"
+  # Trigger the "deploy-to-test" job on "my-project"
   robot.drush.io.run(msg, 'my-project', 'deploy-to-test').then (result) ->
     msg.send result.data.log
 ```

@@ -61,7 +61,7 @@ module.exports = (robot) ->
     io: new DrushIO
   };
 
-  # hubot drush.io token set <token>
+  # hubot drush-io token set <token>
   robot.respond /drush-io token set ([a-zA-Z0-9-_]+\.[a-zA-Z0-9-_]+\.[a-zA-Z0-9-_]+[\/a-zA-Z0-9-_]+)$/i, id: 'drush-io-token.set', (msg) ->
     user = robot.brain.userForId msg.envelope.user.id
     token = msg.match[1]
@@ -74,13 +74,13 @@ module.exports = (robot) ->
       else
         msg.send "Your drush.io API token is invalid. Try regenerating and setting it again."
 
-  # hubot drush.io token reset
+  # hubot drush-io token reset
   robot.respond /drush-io token reset$/i, id: 'drush-io-token.reset', (msg) ->
     user = robot.brain.userForId msg.envelope.user.id
     robot.vault.forUser(user).unset(TokenForBrain)
     msg.reply "I nuked your drush.io API token. You may not be able to run drush.io jobs until you set another token."
 
-  # hubot drush.io token verify
+  # hubot drush-io token verify
   robot.respond /drush-io token verify$/i, id: 'drush-io-token.verify', (msg) ->
     user = robot.brain.userForId msg.envelope.user.id
     token = robot.vault.forUser(user).get(TokenForBrain)
@@ -91,7 +91,7 @@ module.exports = (robot) ->
       else
         msg.send "Your drush.io token is invalid. Try regenerating and setting it again."
 
-  # hubot drush.io run <project> job <job> [with <VAR>="<value>"]
+  # hubot drush-io run <project> job <job> [with <VAR>="<value>"]
   robot.hear /drush-io run ([a-z0-9\-]+) job ([a-z0-9\-]+)(?: with ([a-zA-Z0-9_]+)=\"(.*?)\")?/i, (msg) ->
     payload = {};
     if (msg.match[3] && msg.match[4])
