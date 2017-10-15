@@ -1,6 +1,6 @@
 {
   "name": "@drush-io/hubot-drush-io",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "Trigger custom workflow operations in chat via drush.io.",
   "main": "index.coffee",
   "scripts": {
