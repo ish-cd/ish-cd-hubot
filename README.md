@@ -3,8 +3,8 @@
 Base package for triggering drush.io jobs via Hubot. Features include:
 
 - Encrypted storage for drush.io API Tokens in Hubot's brain
-- Basic command run support
-- API for running commands 
+- Job running and list support
+- API for running commands in your custom Hubot scripts
 
 See [`src/drush-io.coffee`](src/drush-io.coffee) for full documentation.
 
@@ -23,7 +23,7 @@ Then add **@drush-io/hubot-drush-io** to your `external-scripts.json`:
 ## Configuration
 
 - `HUBOT_DRUSH_IO_TOKEN_FERNET_SECRETS` - The key used for encrypting your
-  tokens in the hubot's brain. A comma delimited set of different key tokens.
+  tokens in the Hubot's brain. A comma delimited set of different key tokens.
   To create one run `dd if=/dev/urandom bs=32 count=1 2>/dev/null | openssl base64`
   on a UNIX system.
 - `HUBOT_DRUSH_IO_DEFAULT_PROJECT` - Optional. A drush.io project-ish (project
@@ -32,6 +32,21 @@ Then add **@drush-io/hubot-drush-io** to your `external-scripts.json`:
 - `HUBOT_DRUSH_IO_DEFAULT_API_TOKEN` - Optional. A drush.io API token that, if
   set, is used when a user with no API token set attempts to run a drush.io job.
   Only set this if you need to.
+
+## Usage
+
+For complete and up-to-date usage details, type the following in your chat
+client `hubot help drush.io` and check the "Sample Interaction" section
+below.
+
+Common commands include:
+- `hubot drush-io set token {drush.io api token}` - Intended for private chat
+  with the bot, this command stores a user's drush.io API token in Hubot's
+  brain (encrypted) so that jobs run by the user leverage the user's drush.io
+  credentials and permissions.
+- `hubot drush-io list jobs` - Shows a list of jobs that can be run.
+- `hubot drush-io run job {job name}` - Runs a job. If the job includes
+  required or optional variables, Hubot will ask for those details.
 
 ## API
 
@@ -91,15 +106,25 @@ which uses code from [hubot-vault](https://github.com/ys/hubot-vault).
 
 This script is similar to
 [hubot-github-identity](https://github.com/tombell/hubot-github-identity) but
-allows users to set  tokens in chat instead of through Hubot's http listener.
+allows users to set tokens in chat instead of through Hubot's http listener.
 
 ## Sample Interaction
 
 ```
-user1>> bot drush.io token set eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.t-IDcSemACt8x4iTMCda8Yhe3iZaWbvV5XKSTbuAn0M
-bot>> Your drush.io  API token is valid. I stored it for future use.
-user1>> bot drush.io token verify
-bot>> Your drush.io API token is valid on api.github.com.
-user1>> bot drush.io token reset
-bot>> I nuked your drush.io API token. You may not be able to run drush.io jobs until you set another token.
+user1>> hubot drush-io token set eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.t-IDcSemACt8x4iTMCda8Yhe3iZaWbvV5XKSTbuAn0M
+hubot>> Your drush.io API token is valid. I stored it for future use.
+user1>> hubot drush-io token verify
+hubot>> Your drush.io API token is valid.
+user1>> hubot drush-io list jobs
+hubot>> Create Multidev (create-multidev)
+        Deploy to Prod (deploy-to-prod)
+user1>> hubot drush-io run create-multidev
+hubot>> What should MULTIDEV_NAME be set to?
+user1>> my-feat
+hubot>> Okay, lemme see what I can do.
+hubot>> Looks to have gone smoothly! Here's what I heard back:
+hubot>> ................................
+        [2017-10-05 20:04:07] [info] Created Multidev environment "my-feat"
+user1>> hubot drush-io token reset
+hubot>> I nuked your drush.io API token. You may not be able to run drush.io jobs until you set another token.
 ```

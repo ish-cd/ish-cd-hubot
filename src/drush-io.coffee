@@ -15,6 +15,8 @@
 #   hubot drush-io token set <drush_io_api_token> - Set your user's drush.io API token (USE THIS ONLY IN A PRIVATE CHAT WITH THE BOT)
 #   hubot drush-io token reset - Resets (forgets) your user's drush.io API token
 #   hubot drush-io token verify - Verifies your drush.io token is valid
+#   hubot drush-io list jobs - Lists available jobs to run on the default project.
+#   hubot drush-io list jobs for <project> - Lists available jobs on the given project.
 #   hubot drush-io run <job> - Runs a job on the default project.
 #   hubot drush-io run <project> job <job> - Runs a job on a given project.
 #
@@ -22,13 +24,8 @@
 #   iamEAP
 #
 # Notes:
-#   Perfectly functional, but intended more as a base for your own custom
-#   commands that suit your custom needs. Probably, you'll want to suppress any
-#   need for specific knowledge about project/job names in favor of semantic
-#   meaning around what the jobs actually do.
-#
-#   Recommended that you use this package for API token management, but you can
-#   wire up your custom commands by using the robot.drush.io.run() method.
+#   This package also introduces an API you can use to write a custom hubot
+#   script that can trigger drush.io jobs. Check the README for details.
 
 Path = require("path")
 Conversation = require("hubot-conversation")
@@ -105,6 +102,19 @@ module.exports = (robot) ->
         msg.send "Your drush.io API token is valid."
       else
         msg.send "Your drush.io token is invalid. Try regenerating and setting it again."
+
+  # hubot drush-io list jobs [for <project>]
+  robot.hear /drush-io list jobs(?: for ([a-z0-9\-]+))?/i, (msg) ->
+    Client = robot.drush.io._getClient(msg);
+    project = msg.match[1] || process.env.HUBOT_DRUSH_IO_DEFAULT_PROJECT;
+
+    unless Client?
+      return
+
+    Client.projects(project).jobs().list().then (jobs) ->
+      msg.send jobs.map (job) ->
+        "#{job.data.label} (#{job.data.name})"
+      .join "\n"
 
   # hubot drush-io run [<project> job] <job>
   robot.hear /drush-io run(?: ([a-z0-9\-]+) job)? ([a-z0-9\-]+)/i, (msg) ->
