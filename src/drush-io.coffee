@@ -174,8 +174,6 @@ module.exports = (robot) ->
       msg.send "Okay, lemme see what I can do."
       robot.drush.io.run(msg, msg.match[1], msg.match[2], payload).then (result) ->
         if (result.data.status == 'complete')
-          msg.send "Looks to have gone smoothly! Here's what I heard back:"
-          msg.send result.data.log
+          msg.send "Looks to have gone smoothly! Here's what I heard back:\n#{result.data.log}"
         else if (result.data.status == 'error')
-          msg.send "There may have been a problem. Here's what I heard back:"
-          msg.send result.data.log
+          msg.send "There may have been a problem. Here's what I heard back:\n#{result.data.log}"
