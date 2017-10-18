@@ -132,7 +132,7 @@ module.exports = (robot) ->
         reqs = for envVar, requirement of job.data.dependencies.env
           envVar
 
-        dialog = switchBoard.startDialog(msg, 10000);
+        dialog = switchBoard.startDialog(msg, 30000);
 
         # Utility, recursive function for getting all job dependencies.
         addQuestionToDialog = (remainingVars) ->
@@ -144,13 +144,14 @@ module.exports = (robot) ->
               reject("Cancelling your #{msg.match[2]} run request.")
 
             # Ask for environment variable values.
-            msg.reply "What should #{remainingVars[0]} be set to? "
+            promptMessage = "What should #{remainingVars[0]} be set to? "
             if isOptional
-              msg.reply "Enter (default) to use default value."
+              promptMessage += "\nEnter (default) to use default value."
+            msg.reply promptMessage
 
             # Listen for responses and add them to the payload.
-            dialog.addChoice(/(.*?)/i, (responseMsg) ->
-              payload[remainingVars[0]] = responseMsg.message.text
+            dialog.addChoice(/(.*)/i, (responseMsg) ->
+              payload[remainingVars[0]] = responseMsg.match[0]
               if isOptional && responseMsg.message.text == '(default)'
                 delete payload[remainingVars[0]]
 
