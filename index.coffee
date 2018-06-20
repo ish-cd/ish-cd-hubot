@@ -10,4 +10,4 @@ module.exports = (robot, scripts) ->
 
     key: VaultKey
 
-  robot.loadFile(Path.resolve(__dirname, 'src'), 'drush-io.coffee')
+  robot.loadFile(Path.resolve(__dirname, 'src'), 'ish-cd.coffee')
