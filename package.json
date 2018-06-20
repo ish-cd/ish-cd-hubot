@@ -1,6 +1,6 @@
 {
   "name": "@ish-cd/hubot-ish-cd",
-  "version": "1.0.0-beta.6",
+  "version": "1.0.0-beta.7",
   "description": "Trigger custom workflow operations in chat via Ish - Continuous Delivery.",
   "main": "index.coffee",
   "scripts": {
