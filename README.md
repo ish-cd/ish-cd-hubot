@@ -26,10 +26,10 @@ Then add **@ish-cd/hubot-ish-cd** to your `external-scripts.json`:
   tokens in the Hubot's brain. A comma delimited set of different key tokens.
   To create one run `dd if=/dev/urandom bs=32 count=1 2>/dev/null | openssl base64`
   on a UNIX system.
-- `HUBOT_ISH_CD_DEFAULT_PROJECT` - Optional. An ISH CD project-ish (project
+- `HUBOT_ISH_CD_DEFAULT_PROJECT` - Optional. An Ish CD project-ish (project
   ID or project machine name) that will be used when running jobs if no project
   is provided. Recommended unless you use multiple/many Ish CD projects.
-- `HUBOT_ISH_CD_DEFAULT_API_TOKEN` - Optional. An ISH CD API token that, if
+- `HUBOT_ISH_CD_DEFAULT_API_TOKEN` - Optional. An Ish CD API token that, if
   set, is used when a user with no API token set attempts to run an Ish CD job.
   Only set this if you need to.
 
