@@ -38,7 +38,7 @@ ApiTokenVerifier = Verifiers.ApiTokenVerifier
 module.exports = (robot) ->
   switchBoard = new Conversation(robot);
 
-  unless process.env.HUBOT_ISH_CD_TOKEN_FERNET_SECRETS || process.env.HUBOT_DRUSH_IO_TOKEN_FERNET_SECRETS ?
+  unless (process.env.HUBOT_ISH_CD_TOKEN_FERNET_SECRETS || process.env.HUBOT_DRUSH_IO_TOKEN_FERNET_SECRETS)?
     robot.logger.warning 'The HUBOT_ISH_CD_TOKEN_FERNET_SECRETS environment variable is not set. Please set it.'
 
   class IshCD
