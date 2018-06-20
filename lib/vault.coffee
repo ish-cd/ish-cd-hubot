@@ -30,9 +30,9 @@ class Vault
     @secrets[0]
 
   getSecrets: ->
-    unless process.env.HUBOT_DRUSH_IO_TOKEN_FERNET_SECRETS?
-      throw new Error("Please set a HUBOT_DRUSH_IO_TOKEN_FERNET_SECRETS string in the environment")
-    fernetSecrets = process.env.HUBOT_DRUSH_IO_TOKEN_FERNET_SECRETS.split(",")
+    unless process.env.HUBOT_ISH_CD_TOKEN_FERNET_SECRETS || process.env.HUBOT_DRUSH_IO_TOKEN_FERNET_SECRETS?
+      throw new Error("Please set a HUBOT_ISH_CD_TOKEN_FERNET_SECRETS string in the environment")
+    fernetSecrets = (process.env.HUBOT_ISH_CD_TOKEN_FERNET_SECRETS || process.env.HUBOT_DRUSH_IO_TOKEN_FERNET_SECRETS).split(",")
     (new fernet.Secret(secret) for secret in fernetSecrets)
 
 exports.Vault = Vault

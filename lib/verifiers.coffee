@@ -1,14 +1,14 @@
-DrushIOClient     = require "@drush-io/api-client"
+ClientIsh     = require "@ish-cd/api-client"
 
 VaultKey = "hubot-drush-io-secret"
 
 class ApiTokenVerifier
   constructor: (token) ->
     @token = token?.trim()
-    @DrushIO = new DrushIOClient(@token)
+    @Ish = new ClientIsh(@token)
 
   valid: (cb) ->
-    @DrushIO.account().get().then (account) ->
+    @Ish.account().get().then (account) ->
       if account.data && account.data.id
         cb(true)
       else
